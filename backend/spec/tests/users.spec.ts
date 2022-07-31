@@ -21,7 +21,7 @@ describe("user-router", () => {
 
   const getUsersPath = `${usersPath}${userPaths.get}`;
   const updateUserCartPath = `${usersPath}${userPaths.updateCart}`;
-  const checkoutPath = `${usersPath}${userPaths.checkout}`;
+  const checkoutPath = `${usersPath}/checkout`;
   const { BAD_REQUEST, CREATED, OK } = StatusCodes;
   let agent: SuperTest<Test>;
   const dbFilePath = "src/repos/database.json";
@@ -140,8 +140,8 @@ describe("user-router", () => {
    *                                   Test CHECKOUT
    **********************************************************************************/
   describe(`"GET:${checkoutPath}"`, () => {
-    const callCheckoutApi = (reqBody: TReqBody) => {
-      return agent.get(checkoutPath).type("form").send(reqBody);
+    const callCheckoutApi = (id: number) => {
+      return agent.get(`${checkoutPath}/${id}`);
     };
     const callAddToCartApi = (reqBody: TReqBody) => {
       return agent.put(updateUserCartPath).type("form").send(reqBody);
@@ -171,7 +171,7 @@ describe("user-router", () => {
         ],
       };
       callAddToCartApi(userData).end((err: Error, res: Response) => {
-        callCheckoutApi(userData).end((err: Error, res: Response) => {
+        callCheckoutApi(userData.user.id).end((err: Error, res: Response) => {
           pErr(err);
           expect(res.status).toBe(OK);
 
@@ -204,7 +204,7 @@ describe("user-router", () => {
         ],
       };
       callAddToCartApi(userData).end((err: Error, res: Response) => {
-        callCheckoutApi(userData).end((err: Error, res: Response) => {
+        callCheckoutApi(userData.user.id).end((err: Error, res: Response) => {
           pErr(err);
           expect(res.status).toBe(OK);
 
@@ -215,7 +215,7 @@ describe("user-router", () => {
         });
       });
     });
-    
+
     it(`Case #3
       Customer: Amazon
       Items:
@@ -238,7 +238,7 @@ describe("user-router", () => {
         ],
       };
       callAddToCartApi(userData).end((err: Error, res: Response) => {
-        callCheckoutApi(userData).end((err: Error, res: Response) => {
+        callCheckoutApi(userData.user.id).end((err: Error, res: Response) => {
           pErr(err);
           expect(res.status).toBe(OK);
 
