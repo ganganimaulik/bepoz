@@ -1,0 +1,38 @@
+.App-header {
+  background-color: #282c34;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.App-header h1 {
+  display: inline-block;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+select {
+  padding: 7px 40px 7px 12px;
+  border: 1px solid #e8eaed;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 1px 3px -2px #9098a9;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  transition: all 150ms ease;
+}
+
+.product-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.product {
+  border: 3px solid green;
+  padding: 32px;
+  width: 20%;
+}
